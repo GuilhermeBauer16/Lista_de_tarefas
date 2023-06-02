@@ -2,7 +2,7 @@ import sqlite3
 from time import sleep
 banco = sqlite3.connect('listaDeTarefas.db')
 cursor = banco.cursor()
-# cursor.execute("CREATE TABLE Tarefas ('tarefa' text ,'horário' integer , 'dia da semana' text ) ")
+# cursor.execute("CREATE TABLE Tarefas ('tarefa' text ,'horário' integer , 'dia_da_semana' text ) ")
 c = 0
 def leiaInt(msg):
 
@@ -16,6 +16,21 @@ def leiaInt(msg):
             print('Por favor digite um número para continuar!')
 
     return int_numero
+
+
+def mostraTabela():
+    global c
+    cursor.execute("SELECT rowid , tarefa , horário ,dia_da_semana  FROM Tarefas")
+    for linha in cursor.fetchall():
+        print(c, end=' ')
+        for values in linha:
+            print(values , end=" ")
+        print()
+        c +=1
+    print('/=' * 20)
+    sleep(1)
+    c = 0
+
 
 while True:
     print('/='* 20)
@@ -47,6 +62,21 @@ while True:
             elif opcao == 2:
                 sleep(1)
                 print('Deletar tarefa')
+                print('/=' *20)
+                mostraTabela()
+                valor = leiaInt('Digite o número da tarefa que deseja deletar: ')
+                cursor.execute("SELECT rowid FROM Tarefas WHERE rowid = ?" , (valor,))
+                row = cursor.fetchone()
+                if row:
+                    rowid = row[0]
+                    cursor.execute("DELETE FROM Tarefas WHERE rowid= ?",(rowid,))
+                    if cursor.rowcount > 0:
+                        print('Tarefa deletada com sucesso!')
+                        banco.commit()
+                    else :
+                        print("erro ao deletar a tarefa")
+                else: 
+                    print('numero da tarefa invalida!')
                 continua = 'deletando sua tarefa'
 
             elif opcao == 3:
@@ -54,14 +84,7 @@ while True:
                 print('ver suas tarefas')
                 print('/=' * 20)
                 # print(f'{"N":< 2 }{"tarefa":< 10}{"horario":>10}{"dia da semana":> 10}')
-                cursor.execute("SELECT * FROM Tarefas")
-                for linha in cursor.fetchall():
-                    for values in linha:
-                        print(values , end=" ")
-                    print()
-
-                print('/=' * 20)
-                sleep(1)
+                mostraTabela()
                 continua = 'vendo suas tarefas'
 
 
