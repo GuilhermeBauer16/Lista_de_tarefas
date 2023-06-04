@@ -1,6 +1,6 @@
 # Lista De tarefas
-Uma lista de tarefas com as funcionalidade de adicionar , editar , deletar 
-suas principais tarefas a fim de melhorar a organinação do seu dia a dia.
+Uma lista de tarefas com as funcionalidades de adicionar, editar e deletar suas principais tarefas, 
+com o objetivo de melhorar a organização do seu dia a dia.
 <br>
 <br>
 O objetivo do desenvolvimento desse software é criar um sistema simples e ágil 
@@ -15,26 +15,26 @@ em que ela será realizada. A finalidade é auxiliar você a ter um melhor contr
 
 ## Funcionalidades
 
-* Com o funcionalidade Adicionar tarefas ,você adiciona uma tarefa com os três campos abaixo.
+* Com a funcionalidade de adicionar tarefas, você pode inserir uma nova tarefa preenchendo os três campos abaixo.
 
-  * tarefa: O campo onde você digita a tarefa que deseja adicionar 
+  * Tarefa: Este é o campo onde você digita a tarefa que deseja adicionar. 
   <br>
   
-  * horário: O campo o onde você digita o horário da sua tarefa
+  * Horário: Este é o campo onde você digita o horário da sua tarefa.
   <br>
   
-  * dia da semana: O campo onde você digita o dia da semada do projeto
+  * Dia da semana: Este é o campo onde você digita o dia da semana da sua tarefa.
   <br>
   
- * Com a funcionalidade Deletar você tem a possibilidade de deletar a tarefa que desejar 
+ * Com a funcionalidade de deletar, você tem a possibilidade de remover a tarefa que desejar 
 
  
-* Com a funcionalidade Editar você tem a possibilidade de editar a tarefa que desejar
+* Com a funcionalidade de editar, você tem a possibilidade de modificar a tarefa que desejar.
 
-## Necessario para a funcionalidade do projeto
+## Necessário para a funcionalidade do projeto
 
-Para o funcionamento do projeto você presisara instalar a pip do SQlite3 ,
-no terminal da sua ide ou do sistema operacional.
+Para o funcionamento do projeto, você precisará instalar a biblioteca sqlite3 através do pip.
+Você pode fazer isso no terminal da sua IDE ou do sistema operacional executando o seguinte comando
 
 pip install db-sqlite3
 
@@ -42,3 +42,4 @@ pip install db-sqlite3
 
 ## Autor 
 
+  https://www.linkedin.com/in/guilherme-bauer-desemvolvedor/
