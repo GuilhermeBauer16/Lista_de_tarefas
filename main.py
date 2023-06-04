@@ -9,7 +9,6 @@ tabela_existe = cursor.fetchone()
 if not tabela_existe:
     cursor.execute("CREATE TABLE Tarefas ('tarefa' text ,'horário' text , 'dia_da_semana' text ) ")
 
-
 def leiaInt(msg):
 
 
@@ -24,8 +23,10 @@ def leiaInt(msg):
     return int_numero
 
 
-def mostraTabela():
+def mostraTabela(msg):
     cursor.execute("SELECT rowid , tarefa , horário ,dia_da_semana  FROM Tarefas ORDER BY dia_da_semana")
+    print('/=' * 35)
+    print(msg)
     print('/=' * 35)
     print(f'{"N":<2}{"tarefa":<25}{"horário":>6}{"dia da semana":>32}')
     for linha in cursor.fetchall():
@@ -35,23 +36,8 @@ def mostraTabela():
     sleep(1)
 
 
-def editaTarefa():
-    mostraTabela()
-    tarefa_id = leiaInt('Numero da tarefa que desaja editar: ')
-    cursor.execute('SELECT * FROM Tarefas WHERE rowid= ?', (tarefa_id,))
-    tarefa = cursor.fetchone()
 
-    if tarefa:
-        nova_tarefa = input('Nova tarefa: ')
-        novo_horario = input('Novo horario: ')
-        nova_semana = input('Novo Dia da semana: ')
-        cursor.execute("UPDATE tarefas SET tarefa= ? , horário= ? , dia_da_semana= ? WHERE rowid= ?",
-                       (nova_tarefa , novo_horario ,nova_semana, tarefa_id))
-        banco.commit()
-        print('Tarefa atualizada com sucesso!')
 
-    else:
-        print('Numero da tarefa invalida!')
         
 
 while True:
@@ -75,6 +61,7 @@ while True:
                 print(f'{"Nova tarefa": ^70}')
                 print('/='* 35)
                 tarefa = input('tarefa: ')
+
                 horario = input('horario: ')
                 semana = input('Dia da semana: ')
                 cursor.execute("INSERT INTO Tarefas VALUES(?,?,?)",(tarefa,horario,semana))
@@ -82,9 +69,10 @@ while True:
                 continua = 'adicionando sua tarefa'
             elif opcao == 2:
                 sleep(1)
-                print(f'{"Deletar tarefa": ^70}')
-                mostraTabela()
-                valor = leiaInt('Digite o número da tarefa que deseja deletar: ')
+                mostraTabela(f'{"Deletar tarefa": ^70}')
+                valor = leiaInt('Digite o número da tarefa que deseja deletar[0 para voltar ]: ')
+                if valor == 0:
+                    break
                 cursor.execute("SELECT rowid FROM Tarefas")
                 row = cursor.fetchone()
                 if row:
@@ -107,18 +95,32 @@ while True:
 
             elif opcao == 3:
                 sleep(1)
-                print(f'{"ver suas tarefas": ^70}')
-                print('/='* 35)
-
-                mostraTabela()
+                mostraTabela(f'{"Suas tarefas": ^70}')
                 continua = 'vendo suas tarefas'
                 
             elif opcao == 4:
-                editaTarefa()
+                mostraTabela('Editar tarefa')
+                tarefa_id = leiaInt('Numero da tarefa que desaja editar[0 para voltar ao Menu]: ')
+                if tarefa_id == 0:
+                    break
+                
+                cursor.execute('SELECT * FROM Tarefas WHERE rowid= ?', (tarefa_id,))
+                tarefa = cursor.fetchone()
+
+                if tarefa:
+                    nova_tarefa = input('Nova tarefa: ')
+                    novo_horario = input('Novo horario: ')
+                    nova_semana = input('Novo Dia da semana: ')
+                    cursor.execute("UPDATE tarefas SET tarefa= ? , horário= ? , dia_da_semana= ? WHERE rowid= ?",
+                                (nova_tarefa , novo_horario ,nova_semana, tarefa_id))
+                    banco.commit()
+                    print('Tarefa atualizada com sucesso!')
+
+                else:
+                    print('Numero da tarefa invalida!')
+
                 continua = 'editando tarefa'
                 
-
-
             if opcao >= 1 and opcao <=4:
                 continuar = input(f'deseja continuar {continua}: ').upper()[0]
                 if continuar == 'N':
