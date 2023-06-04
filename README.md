@@ -36,6 +36,9 @@ em que ela será realizada. A finalidade é auxiliar você a ter um melhor contr
 Para o funcionamento do projeto você presisara instalar a pip do SQlite3 ,
 no terminal da sua ide ou do sistema operacional.
 
-
 pip install db-sqlite3
+
+![image](https://github.com/GuilhermeBauer16/Lista_de_tarefas/assets/123701893/b137233d-0c85-4cae-86b4-faaf1b351c3a)
+
+## Autor 
 
